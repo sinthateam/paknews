@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pakistan News</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%' stop-color='%23ff5733'/%3E%3Cstop offset='100%' stop-color='%23ffc300'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M572.52 241.4C518.94 135.5 407.45 64 288 64S57.06 135.5 3.48 241.4a48.44 48.44 0 000 29.2C57.06 376.5 168.55 448 288 448s230.94-71.5 284.52-177.4a48.44 48.44 0 000-29.2zM288 400a112 112 0 11112-112 112.14 112.14 0 01-112 112zm0-176a64 64 0 1064 64 64 64 0 00-64-64z'/%3E%3C/svg%3E" type="image/svg+xml">
+
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7fa;
+      color: #2c3e50;
+      transition: background 0.4s, color 0.4s;
+
+    }
+
+    body.dark {
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    header {
+      background: #1b2631;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      flex-wrap: wrap;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header img { width: 250px; height: 90px; margin-right: 50px; }
+    .header-text h1 { margin: 0; font-size: 28px; }
+    .header-text h2 { margin: 5px 0; color: #f0c419; font-weight: 400; font-size: 18px; }
+
+    nav {
+      background: #2c3e50;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 15px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    nav button:hover { background: #34495e; }
+
+    main { padding: 30px; }
+
+   .topbar {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  background: #ecf0f1;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0; /* Makes the topbar stick to the top of the screen */
+  z-index: 10; /* Ensures it's above other content */
+  margin-top: -20px;
+  transition: top 0.3s ease-in-out;
+}
+
+
+    .topbar button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .topbar button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 165, 0, 0.6);
+    }
+	
+   
+    .topbar button.active {
+     background: #e74c3c;  /* Change to a red color */
+     color: #fff;
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6); /* Adjusted shadow to match new color */
+    }
+
+    .section, .section1 {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+    .active, .active1 {
+      display: block;
+    }
+    .section1 {
+      text-align: center;
+      padding: 0px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #news-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding-top: 10px;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+    }
+
+    .news-item {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 5px 5px 15px rgba(0, 250, 200, 0.09);
+      overflow: hidden;
+      display: flex;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .news-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(255, 165, 0, 0.6);
+    }
+
+    .news-image {
+      flex: 0 0 200px;
+      height: 140px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .news-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .news-title {
+      font-size: 20px;
+      margin: 0 0 8px;
+      color: #2c3e50;
+    }
+
+    .news-title a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .news-title a:hover {
+      color: #2980b9;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: #6c7a89;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .description-short, .description-full {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #34495e;
+      margin-bottom: 16px;
+    }
+
+    .description-full { display: none; }
+
+    .news-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .news-footer button,
+    .news-footer a {
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .news-footer button.read-more {
+      background: #2980b9;
+      color: #fff;
+    }
+    .news-footer button.read-more:hover {
+      background: #1c5980;
+    }
+
+    .news-footer a.share-btn {
+      background: #25d366;
+      color: #fff;
+    }
+    .news-footer a.share-btn:hover {
+      background: #1aae5d;
+    }
+
+    .news-footer a.source-btn {
+      background: #7f8c8d;
+      color: #fff;
+    }
+    .news-footer a.source-btn:hover {
+      background: #606f73;
+    }
+
+    .loader {
+      text-align: center;
+      padding: 50px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .news-item { flex-direction: column; }
+      .news-image { width: 100%; height: 180px; }
+    }
+
+    .dark .topbar, .dark .news-item, .dark .news-content {
+      background: #1e1e1e;
+    }
+
+   .dark .news-title, .dark .description-full,  .dark .description-short {
+    color: #ffffff;
+    }
+
+    .dark .news-title a:hover {
+      color: #90caf9;
+    }
+       .dark .meta {
+      color: #aaa;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #3498db;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="osint.png" alt="Logo" />
+    <div class="header-text">
+      <h1>Pakistan News</h1>
+      <h2>OSINT Dashboard</h2>
+    </div>
+  </header>
+
+  <nav>
+    <button onclick="showSection('home')"><i class="fas fa-home"></i> Home</button>
+    <button onclick="showSection('news')"><i class="fas fa-newspaper"></i> News</button>
+    <button onclick="window.open('https://cyniq.in', '_blank')"><i class="fas fa-user-secret"></i> Cynic</button>
+    <button onclick="window.open('https://cface.ai', '_blank')"><i class="fas fa-robot"></i> CFace</button>
+    <button onclick="showSection('twitter')"><i class="fab fa-twitter"></i> Twitter</button>
+
+  </nav>
+
+  <main>
+    <section id="home" class="section1 active1">
+      <h2>Welcome to the OSINT Dashboard</h2>
+      <p>Monitor English-language news across Pakistan.</p>
+    </section>
+    <section id="news" class="section">
+      <div class="topbar">
+        <button onclick="loadFeed('dawn')"><i class="fas fa-feather-alt"></i> Dawn</button>
+        <button onclick="loadFeed('news')"><i class="fas fa-bullhorn"></i> The News</button>
+        <button onclick="loadFeed('dailytimes')"><i class="fas fa-clock"></i> Daily Times</button>
+        <button onclick="loadFeed('today')"><i class="fas fa-calendar-day"></i> Pakistan Today</button>
+        <button onclick="loadFeed('nation')"><i class="fas fa-flag"></i> The Nation</button>
+        <button onclick="loadFeed('bol')"><i class="fas fa-tv"></i> BOL</button>
+        <button onclick="loadFeed('geo')"><i class="fas fa-globe-asia"></i> Geo</button>
+        <button onclick="loadFeed('khybermail')"><i class="fas fa-envelope-open-text"></i> Khyber Mail</button>
+	<button onclick="loadFeed('urdupoint')"><i class="fas fa-broadcast-tower"></i> urdupoint</button>
+	<button onclick="loadFeed('balochistan')"><i class="fas fa-cogs"></i> Balochistan post</button>
+	<button onclick="loadFeed('khyberchronicle')"><i class="fas fa-file-alt"></i> khyberchronicles</button>
+	<button onclick="loadFeed('pakobserver')"><i class="fas fa-globe"></i> pakobserver</button>
+      </div>
+
+      <div class="loader" id="loader" style="display:none;">
+        <div class="spinner"></div>
+        <p>Loading news...</p>
+	<p>
+      </div>
+
+      <div id="news-container"></div>
+    </section>
+<section id="twitter" class="section">
+      <h2>Twitter OSINT Sources</h2>
+      <div id="twitter-accounts">
+  </main>
+
+  <button class="toggle-theme" onclick="toggleTheme()">
+    🌓 Theme
+  </button>
+
+  <script>
+    const feeds = {
+  dawn: 'https://www.dawn.com/feeds/home',
+  news: 'https://www.thenews.com.pk/rss/1/1',
+  dailytimes: 'https://dailytimes.com.pk/feed/',
+  today: 'https://www.pakistantoday.com.pk/feed/',
+  nation: 'https://nation.com.pk/rss/national',
+  bol: 'https://www.bolnews.com/feed/',
+  geo: 'https://www.geo.tv/rss/1/1',
+  khybermail: 'https://thekhybermail.com/feed/',
+  urdupoint: 'https://www.urdupoint.com/en/sitemap/news.rss',
+  balochistan: 'https://thebalochistanpost.net/feed/',
+  khyberchronicle: 'https://khyberchronicles.pk/feed/',
+  pakobserver: 'https://pakobserver.net/feed/',
+};
+
+function showSection(id) {
+  document.querySelectorAll('.section, .section1')
+    .forEach(s => s.classList.remove('active', 'active1'));
+  document.getElementById(id)
+    .classList.add(id === 'home' ? 'active1' : 'active');
+}
+
+function toggleReadMore(idx) {
+  const shortEl = document.getElementById(`short-${idx}`);
+  const fullEl = document.getElementById(`full-${idx}`);
+  const btn = document.getElementById(`btn-${idx}`);
+  if (fullEl.style.display === 'block') {
+    fullEl.style.display = 'none';
+    shortEl.style.display = 'block';
+    btn.textContent = 'Read more';
+  } else {
+    fullEl.style.display = 'block';
+    shortEl.style.display = 'none';
+    btn.textContent = 'Show less';
+  }
+}
+
+function loadFeed(source) {
+  const container = document.getElementById('news-container');
+  const loader = document.getElementById('loader');
+  const buttons = document.querySelectorAll('.topbar button');
+  
+  // Remove the active class from all buttons
+  buttons.forEach(button => button.classList.remove('active'));
+  
+  // Add the active class to the clicked button
+  const activeButton = document.querySelector(`.topbar button[onclick="loadFeed('${source}')"]`);
+  activeButton.classList.add('active');
+  
+  container.innerHTML = '';
+  loader.style.display = 'block';
+  localStorage.setItem('lastFeed', source);
+
+  fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feeds[source])}`)
+    .then(r => r.json())
+    .then(data => {
+      loader.style.display = 'none';
+      if (!data.items?.length) {
+        container.innerHTML = '<p>No news found.</p>';
+        return;
+      }
+      data.items.slice(0, 10).forEach((item, idx) => {
+        const pubDate = new Date(item.pubDate).toLocaleString('en-GB', {
+          day: 'numeric', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+        const imgMatch = item.description.match(/<img.*?src="(.*?)"/);
+        const imageUrl = imgMatch ? imgMatch[1] : null;
+        const shareUrl = `https://wa.me/?text=${encodeURIComponent(item.title + ' - ' + item.link)}`;
+        const imgTag = imageUrl
+          ? `<img src="${imageUrl}" class="news-image" alt="" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x200?text=No+Image';"/>`
+          : `<img src="https://via.placeholder.com/400x200?text=No+Image" class="news-image" alt=""/>`;
+        const fullText = (item.content || item.description).replace(/<[^>]+>/g, '').trim();
+
+        container.innerHTML += `
+          <div class="news-item">
+            ${imgTag}
+            <div class="news-content">
+              <h3 class="news-title"><a href="${item.link}" target="_blank">${item.title}</a></h3>
+              <div class="meta"><i class="fas fa-clock"></i> ${pubDate}</div>
+              <p id="short-${idx}" class="description-short">${fullText.substring(0, 250)}…</p>
+              <p id="full-${idx}" class="description-full">${fullText}</p>
+              <div class="news-footer">
+                <button id="btn-${idx}" class="read-more" onclick="toggleReadMore(${idx})">Read more</button>
+                <a href="${item.link}" target="_blank" class="source-btn"><i class="fas fa-link"></i> Source</a>
+                <a href="${shareUrl}" target="_blank" class="share-btn" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+              </div>
+            </div>
+          </div>`;
+      });
+    })
+    .catch(err => {
+      loader.style.display = 'none';
+      container.innerHTML = `<p>Error loading news: ${err.message}</p>`;
+    });
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// Dynamically inject Twitter widgets
+    const twitterAccounts = [
+      'OfficialDGISPR',
+      'GovtofPakistan',
+      'pid_gov',
+      'RadioPakistan',
+      'ForeignOfficePk'
+    ];
+
+    const twitterContainer = document.getElementById('twitter-accounts');
+
+    twitterAccounts.forEach(handle => {
+      const div = document.createElement('div');
+      div.className = 'twitter-embed';
+      div.innerHTML = `
+        <a class="twitter-timeline" 
+           data-height="400" 
+           href="https://twitter.com/${handle}?ref_src=twsrc%5Etfw">
+           Tweets by @${handle}
+        </a>`;
+      twitterContainer.appendChild(div);
+    });
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') document.body.classList.add('dark');
+
+  const lastFeed = localStorage.getItem('lastFeed');
+  if (lastFeed) loadFeed(lastFeed);
+});
+
+  </script>
+
+</body>
+</html>
