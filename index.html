@@ -443,18 +443,35 @@
       <div class="topbar-container">
         <button class="scroll-btn left" onclick="scrollTopbar('left')"><i class="fas fa-chevron-left"></i></button>
         <div class="topbar" id="topbar">
-          <button onclick="loadFeed('dawn')"><i class="fas fa-feather-alt"></i> Dawn</button>
-          <button onclick="loadFeed('news')"><i class="fas fa-bullhorn"></i> The News</button>
-          <button onclick="loadFeed('dailytimes')"><i class="fas fa-clock"></i> Daily Times</button>
-          <button onclick="loadFeed('today')"><i class="fas fa-calendar-day"></i> Pakistan Today</button>
-          <button onclick="loadFeed('nation')"><i class="fas fa-flag"></i> The Nation</button>
-          <button onclick="loadFeed('bol')"><i class="fas fa-tv"></i> BOL</button>
-          <button onclick="loadFeed('geo')"><i class="fas fa-globe-asia"></i> Geo</button>
-          <button onclick="loadFeed('khybermail')"><i class="fas fa-envelope-open-text"></i> Khyber Mail</button>
-          <button onclick="loadFeed('urdupoint')"><i class="fas fa-broadcast-tower"></i> UrduPoint</button>
-          <button onclick="loadFeed('balochistan')"><i class="fas fa-cogs"></i> Balochistan Post</button>
-          <button onclick="loadFeed('khyberchronicle')"><i class="fas fa-file-alt"></i> Khyber Chronicles</button>
-          <button onclick="loadFeed('pakobserver')"><i class="fas fa-globe"></i> Pak Observer</button>
+    <button onclick="loadFeed('dawn')"><i class="fas fa-feather-alt"></i> Dawn</button>
+    <button onclick="loadFeed('news')"><i class="fas fa-bullhorn"></i> The News</button>
+    <button onclick="loadFeed('express_tribune')"><i class="fas fa-newspaper"></i> Express Tribune</button>
+    <button onclick="loadFeed('dailytimes')"><i class="fas fa-clock"></i> Daily Times</button>
+    <button onclick="loadFeed('today')"><i class="fas fa-calendar-day"></i> Pakistan Today</button>
+    <button onclick="loadFeed('nation')"><i class="fas fa-flag"></i> The Nation</button>
+    <button onclick="loadFeed('bol')"><i class="fas fa-tv"></i> BOL News</button>
+    <button onclick="loadFeed('geo')"><i class="fas fa-globe-asia"></i> Geo News</button>
+    <button onclick="loadFeed('ary')"><i class="fas fa-satellite-dish"></i> ARY News</button>
+    <button onclick="loadFeed('app')"><i class="fas fa-cogs"></i> APP</button>
+    <button onclick="loadFeed('business_recorder')"><i class="fas fa-chart-bar"></i> Business Recorder</button>
+    <button onclick="loadFeed('pakobserver')"><i class="fas fa-globe"></i> Pak Observer</button>
+    <button onclick="loadFeed('frontier_post')"><i class="fas fa-map-marked-alt"></i> Frontier Post</button>
+    <button onclick="loadFeed('khybermail')"><i class="fas fa-envelope-open-text"></i> Khyber Mail</button>
+    <button onclick="loadFeed('balochistan_post')"><i class="fas fa-mountain"></i> Balochistan Post</button>
+    <button onclick="loadFeed('urdupoint_en')"><i class="fas fa-language"></i> UrduPoint Eng</button>
+    <button onclick="loadFeed('hamariweb_en')"><i class="fas fa-desktop"></i> Hamariweb Eng</button>
+    <button onclick="loadFeed('propakistani')"><i class="fas fa-mobile-alt"></i> ProPakistani</button>
+    <button onclick="loadFeed('pak_army')"><i class="fas fa-user-shield"></i> Army</button>
+    <button onclick="loadFeed('pak_military')"><i class="fas fa-fighter-jet"></i> Military</button>
+    <button onclick="loadFeed('pak_defence')"><i class="fas fa-shield-alt"></i> Defence</button>
+    <button onclick="loadFeed('pak_navy')"><i class="fas fa-ship"></i> Navy</button>
+    <button onclick="loadFeed('pak_airforce')"><i class="fas fa-plane-departure"></i> Air Force</button>
+    <button onclick="loadFeed('foreign_relations')"><i class="fas fa-handshake"></i> Foreign Relations</button>
+    <button onclick="loadFeed('development')"><i class="fas fa-building"></i> Development</button>
+    <button onclick="loadFeed('militant_news')"><i class="fas fa-exclamation-triangle"></i> Militant News</button>
+    <button onclick="loadFeed('attack_news')"><i class="fas fa-crosshairs"></i> Attack News</button>
+    <button onclick="loadFeed('times_of_india_pak')"><i class="fab fa-hotjar"></i> Times of India (Pak)</button>
+    <button onclick="loadFeed('global_voices_pak')"><i class="fas fa-globe"></i> Global Voices (Pak)</button>
         </div>
         <button class="scroll-btn right" onclick="scrollTopbar('right')"><i class="fas fa-chevron-right"></i></button>
       </div>
@@ -483,16 +500,33 @@
     const feeds = {
       dawn: 'https://www.dawn.com/feeds/home',
       news: 'https://www.thenews.com.pk/rss/1/1',
+      express_tribune: 'https://tribune.com.pk/feed/home',
       dailytimes: 'https://dailytimes.com.pk/feed/',
       today: 'https://www.pakistantoday.com.pk/feed/',
       nation: 'https://nation.com.pk/rss/national',
       bol: 'https://www.bolnews.com/feed/',
       geo: 'https://www.geo.tv/rss/1/1',
-      khybermail: 'https://thekhybermail.com/feed/',
-      urdupoint: 'https://www.urdupoint.com/en/sitemap/news.rss',
-      balochistan: 'https://thebalochistanpost.net/feed/',
-      khyberchronicle: 'https://khyberchronicles.pk/feed/',
+      ary: 'https://arynews.tv/en/feed/',
+      app: 'https://www.app.com.pk/feed/',
+      business_recorder: 'https://www.brecorder.com/feed/',
       pakobserver: 'https://pakobserver.net/feed/',
+      frontier_post: 'https://thefrontierpost.com/feed/',
+      khybermail: 'https://thekhybermail.com/feed/',
+      balochistan_post: 'https://thebalochistanpost.net/feed/',
+      urdupoint_en: 'https://www.urdupoint.com/en/sitemap/news.rss',
+      hamariweb_en: 'https://www.hamariweb.com/news/rss/news_rss.aspx',
+      propakistani: 'https://propakistani.pk/feed',
+      pak_army: 'https://news.google.com/rss/search?q=pakistan+army',
+      pak_military: 'https://news.google.com/rss/search?q=pakistan+military',
+      pak_defence: 'https://news.google.com/rss/search?q=pakistan+defence',
+      pak_navy: 'https://news.google.com/rss/search?q=pakistan+navy',
+      pak_airforce: 'https://news.google.com/rss/search?q=pakistan+air+force',
+      foreign_relations: 'https://news.google.com/rss/search?q=pakistan+foreign+relations',
+      development: 'https://news.google.com/rss/search?q=pakistan+development',
+      militant_news: 'https://news.google.com/rss/search?q=pakistan+militant+news',
+      attack_news: 'https://news.google.com/rss/search?q=pakistan+attack',
+      times_of_india_pak: 'https://timesofindia.indiatimes.com/rssfeeds/1898194.cms',
+      global_voices_pak: 'https://globalvoices.org/tag/pakistan/feed/',
     };
 
     function showSection(id) {
@@ -623,9 +657,24 @@
 
     function setupTwitterFeeds() {
         const twitterAccounts = [
-          'OfficialDGISPR', 'GovtofPakistan', 'pid_gov', 'RadioPakistan',
-          'ForeignOfficePk', 'sayedzbukhari', 'Asad_Umar', 'fawadchaudhry'
-        ];
+  'OfficialDGISPR', 'GovtofPakistan', 'pid_gov', 'RadioPakistan',
+  'ForeignOfficePk', 'sayedzbukhari', 'Asad_Umar', 'fawadchaudhry',
+  'Bahot_Baluch', 'BrigAshfaqHasan', 'Conflictpk', 'LeejSimon',
+  'KabulFrontline', 'zubair_utmanzai', 'Pak_AfgAffairs', 'TracTerrorism',
+  'PashtunWali79', 'PakistanFauj', 'khorasandiary', 'AfghanistanNMF',
+  'spogmai_fm', 'NepCorres', 'north1122_news', 'Waziristan7861',
+  'elisabethmalom1', 'fpa31', 'TheLegateIN', 'zarrar_11PK',
+  'Resonant_News', 'Defense_Talks', 'AGFanOff', 'soldierspeaks',
+  '_AhmedQuraishi', 'RadioactiveFrnd', 'Defence__Pk', 'RealBababanaras',
+  'dgprPaknavy', 'GDI_Aero', 'defence_insider', 'InsurgencyWatch',
+  'ForumStrategic', 'War_Analysts', 'MoDAfghanistan2', 'ModAfghanistan4',
+  'Helmand215Corps', 'AfgGcpsu', 'Qulordo207alfar', 'GDI1415',
+  '203mansoricorps', 'markazi313', 'AhmdKhwshh32599', 'AfghanAnalyst2',
+  'AboZobir5', 'Taliban_times', 'shamssameem313', 'ArianaNews_',
+  'AFIntlBrk', 'pashtortanews', 'AtalnRoghtya', 'HafizUmari313',
+  'bnadari1', 'HafizHelmandy', 'NRFafg', 'AfgFreedomAFF',
+  'Bashaarafghan', 'Brigade_P_203M', '33443tPBx7HX6VZ'
+];
         const twitterContainer = document.getElementById('twitter-accounts');
         twitterContainer.innerHTML = '';
         twitterAccounts.forEach(handle => {
