@@ -144,7 +144,7 @@
     .section, .section1 { display: none; animation: fadeIn 0.5s ease-in; }
     .active, .active1 { display: block; }
     .section1 { text-align: center; padding: 0px; }
-    .section1 h2 { font-size: 28px; color: #34495e; }
+    .section1 h2, .section h2 { font-size: 28px; color: #34495e; margin-bottom: 30px; text-align: center; }
     .section1 p { font-size: 18px; color: #6c7a89; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -199,15 +199,8 @@
     .spinner { width: 40px; height: 40px; border: 4px solid #ccc; border-top: 4px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* --- ENHANCED GPS Section Styles --- */
-    #gps {
-      padding-top: 0px;
-    }
+    /* --- GPS Section Styles --- */
     #gps h2 {
-      text-align: center;
-      color: #34495e;
-      font-size: 26px;
-      margin-bottom: 40px;
       position: relative;
     }
     #gps h2::after {
@@ -413,17 +406,157 @@
       display: none;
     }
 
+    /* --- IMPROVED RADIO PLAYER STYLES --- */
+    #radio {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .region-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e0e0e0;
+        text-align: left;
+    }
+    .station-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    .station {
+        background: #fff;
+        border: 1px solid #0aa1b1;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .station:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+        border-color: #3498db;
+    }
+    .station-info {
+        flex-grow: 1;
+        min-width: 0; /* Prevents text from overflowing */
+    }
+    .station-name {
+        font-weight: 600;
+        font-size: 16px;
+        color: #34495e;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .station-frequency {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin: 4px 0 0;
+    }
+    .station-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .play-pause-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        background-color: #ecf0f1;
+        color: #7f8c8d;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s, color 0.3s;
+        flex-shrink: 0;
+        font-size: 18px; /* For FontAwesome icons */
+    }
+    .play-pause-btn:hover {
+        background-color: #e0e6e8;
+        color: #3498db;
+    }
+    .play-pause-btn .fa-play { display: block; margin-left: 3px; }
+    .play-pause-btn .fa-pause, .play-pause-btn .radio-loader { display: none; }
+
+    /* Loading state */
+    .station.loading .play-pause-btn .fa-play,
+    .station.loading .play-pause-btn .fa-pause {
+        display: none;
+    }
+    .station.loading .play-pause-btn .radio-loader {
+        display: block;
+    }
+    .radio-loader {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #bdc3c7;
+        border-top: 3px solid #3498db;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    /* Playing state */
+    .station.playing {
+      border-color: #3498db;
+      box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1), 0 8px 25px rgba(52, 152, 219, 0.15);
+    }
+    .station.playing .play-pause-btn {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+    .station.playing .play-pause-btn:hover {
+        background-color: #c0392b;
+    }
+    .station.playing .play-pause-btn .fa-play { display: none; }
+    .station.playing .play-pause-btn .fa-pause { display: block; }
+
+    .visualizer {
+        display: none; /* Hidden by default */
+        align-items: flex-end;
+        justify-content: space-between;
+        width: 28px;
+        height: 24px;
+    }
+    .station.playing .visualizer {
+      display: flex; /* Shown only when playing */
+    }
+    .visualizer span {
+        width: 4px;
+        height: 10%;
+        background-color: #bdc3c7;
+        display: block;
+        border-radius: 2px;
+        animation: visualize 1.2s infinite ease-in-out alternate;
+    }
+    .visualizer span:nth-child(2) { animation-delay: 0.2s; }
+    .visualizer span:nth-child(3) { animation-delay: 0.4s; }
+    .visualizer span:nth-child(4) { animation-delay: 0.6s; }
+    
+    @keyframes visualize {
+        from { height: 10%; background-color: #3498db; }
+        to { height: 100%; background-color: #e74c3c; }
+    }
+
+
     /* --- Dark Mode Styles --- */
     .dark .topbar-container .scroll-btn { background: #1e1e1e; color: #e0e0e0; }
     .dark .topbar-container .scroll-btn:hover { background: #2a2a2a; }
     .dark .topbar { background: #1e1e1e; }
     .dark .news-item, .dark .news-content { background: #1e1e1e; }
     .dark .news-title, .dark .description-full,  .dark .description-short { color: #ffffff; }
-    .dark .section1 h2, .dark .news-title a:hover { color: #90caf9; }
+    .dark .section1 h2, .dark .section h2, .dark .news-title a:hover { color: #90caf9; }
     .dark .section1 p, .dark .meta { color: #aaa; }
     .dark .twitter-link-item { background: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: #1DA1F2; }
     
-    .dark #gps h2 { color: #e0e0e0; }
     .dark #gps h2::after { background: #90caf9; }
     .dark .converter-box { background: #1e1e1e; border-color: #333; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
     .dark .converter-box:hover { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); }
@@ -444,6 +577,20 @@
     .dark .copy-icon:hover { color: #90caf9; }
     .dark .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg); }
 
+    /* Dark Mode for Improved Radio */
+    .dark .region-title { color: #90caf9; border-bottom-color: #333; }
+    .dark .station { background: #1e1e1e; border-color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .dark .station:hover { border-color: #90caf9; box-shadow: 0 8px 25px rgba(144, 202, 249, 0.15); }
+    .dark .station-name { color: #e0e0e0; }
+    .dark .station-frequency { color: #888; }
+    .dark .play-pause-btn { background-color: #2a2a2a; color: #aaa; }
+    .dark .play-pause-btn:hover { background-color: #313131; color: #90caf9; }
+    .dark .radio-loader { border-color: #555; border-top-color: #90caf9; }
+    .dark .station.playing { border-color: #f48fb1; box-shadow: 0 0 0 4px rgba(244, 143, 177, 0.1), 0 8px 25px rgba(244, 143, 177, 0.15); }
+    .dark .station.playing .play-pause-btn { background-color: #f48fb1; color: #121212; }
+    .dark .station.playing .play-pause-btn:hover { background-color: #f06292; }
+
+
     /* --- MOBILE RESPONSIVE STYLES --- */
     @media (max-width: 992px) {
       #gps-container { grid-template-columns: 1fr; gap: 30px; }
@@ -463,7 +610,7 @@
       main { padding: 20px 15px; }
       .header-text h1 { font-size: 22px; }
       .header-text h2 { font-size: 16px; }
-      .section1 h2 { font-size: 24px; }
+      .section1 h2, .section h2 { font-size: 24px; }
       .section1 p { font-size: 16px; }
       .news-title { font-size: 18px; }
       .dms-group { grid-template-columns: 1fr 1fr 1fr 80px; }
@@ -492,6 +639,7 @@
     <div class="nav-links">
       <button onclick="showSection('home')"><i class="fas fa-home"></i> Home</button>
       <button onclick="showNewsSection()"><i class="fas fa-newspaper"></i> News</button>
+      <button onclick="showSection('radio')"><i class="fas fa-broadcast-tower"></i> Radio</button>
       <button onclick="showSection('gps')"><i class="fas fa-map-marker-alt"></i> GPS</button>
       <button onclick="window.open('https://cyniq.in', '_blank')"><i class="fas fa-user-secret"></i> Cynic</button>
       <button onclick="window.open('https://cface.ai', '_blank')"><i class="fas fa-robot"></i> CFace</button>
@@ -502,7 +650,7 @@
   <main>
     <section id="home" class="section1 active1">
       <h2>Welcome to the OSINT Dashboard</h2>
-      <p>Monitor English-language news across Pakistan.</p>
+      <p>Monitor English-language news, radio, and more across Pakistan.</p>
     </section>
 
     <section id="news" class="section">
@@ -521,12 +669,12 @@
           <button onclick="loadFeed('balochistan')"><i class="fas fa-cogs"></i> Balochistan Post</button>
           <button onclick="loadFeed('khyberchronicle')"><i class="fas fa-file-alt"></i> Khyber Chronicles</button>
           <button onclick="loadFeed('pakobserver')"><i class="fas fa-globe"></i> Pak Observer</button>
-	  <button onclick="loadFeed('ary')"><i class="fas fa-satellite-dish"></i> ARY News</button>
+	        <button onclick="loadFeed('ary')"><i class="fas fa-satellite-dish"></i> ARY News</button>
           <button onclick="loadFeed('app')"><i class="fas fa-cogs"></i> APP</button>
           <button onclick="loadFeed('business_recorder')"><i class="fas fa-chart-bar"></i> Business Recorder</button>
-	  <button onclick="loadFeed('frontier_post')"><i class="fas fa-map-marked-alt"></i> Frontier Post</button>
-	  <button onclick="loadFeed('hamariweb_en')"><i class="fas fa-desktop"></i> Hamariweb Eng</button>
-   	  <button onclick="loadFeed('propakistani')"><i class="fas fa-mobile-alt"></i> ProPakistani</button>
+	        <button onclick="loadFeed('frontier_post')"><i class="fas fa-map-marked-alt"></i> Frontier Post</button>
+	        <button onclick="loadFeed('hamariweb_en')"><i class="fas fa-desktop"></i> Hamariweb Eng</button>
+   	      <button onclick="loadFeed('propakistani')"><i class="fas fa-mobile-alt"></i> ProPakistani</button>
         </div>
         <button class="scroll-btn right" onclick="scrollTopbar('right')"><i class="fas fa-chevron-right"></i></button>
       </div>
@@ -535,6 +683,10 @@
         <p>Loading news...</p>
       </div>
       <div id="news-container"></div>
+    </section>
+
+    <section id="radio" class="section">
+      <!-- Radio player will be dynamically generated here -->
     </section>
 
     <section id="gps" class="section">
@@ -604,7 +756,7 @@
     </section>
 
     <section id="twitter" class="section">
-      <h2>Twitter OSINT Sources</h2>
+      <h2><i class="fab fa-twitter"></i> Twitter OSINT Sources</h2>
       <div id="twitter-accounts"></div>
     </section>
   </main>
@@ -625,6 +777,76 @@
       frontier_post: 'https://thefrontierpost.com/feed/', hamariweb_en: 'https://www.hamariweb.com/news/rss/news_rss.aspx', propakistani: 'https://propakistani.pk/feed',
     };
 
+    // --- Radio Station Data ---
+    const radioData = {
+    "Islamabad": [
+        { name: "Saut-ul-Quran", freq: "Quran Channel", url: "https://whmsonic.radio.gov.pk:7002/stream?type=http&nocache=12" },
+        { name: "FM 101 Islamabad", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:7008/stream?type=http&nocache=12" },
+        { name: "Planet FM 87.6", freq: "87.6 MHz", url: "https://whmsonic.radio.gov.pk:7042/stream?type=http&nocache=12" },
+        { name: "Islamabad Station", freq: "Live Stream", url: "https://whmsonic.radio.gov.pk:7003/stream?type=http&nocache=12" },
+        { name: "NCAC", freq: "National Channel", url: "https://whmsonic.radio.gov.pk:7004/stream?type=http&nocache=12" },
+        { name: "World Service", freq: "English Service", url: "https://whmsonic.radio.gov.pk:7005/stream?type=http&nocache=12" },
+        { name: "External Service", freq: "Global Stream", url: "https://whmsonic.radio.gov.pk:7006/stream?type=http&nocache=12" },
+        { name: "Sports & Health Channel", freq: "Thematic Channel", url: "https://whmsonic.radio.gov.pk:7007/stream?type=http&nocache=12" },
+        { name: "Technology channel", freq: "Thematic Channel", url: "https://whmsonic.radio.gov.pk:8094/stream?type=http&nocache=12" },
+        { name: "Chalte Chalte", freq: "Classic Hits", url: "https://whmsonic.radio.gov.pk:7008/stream?type=http&nocache=12" },
+        { name: "Environment", freq: "Thematic Channel", url: "https://whmsonic.radio.gov.pk:8102/stream?type=http&nocache=12" },
+        { name: "Health", freq: "Thematic Channel", url: "https://whmsonic.radio.gov.pk:7000/Health" },
+        { name: "Kids", freq: "Thematic Channel", url: "https://whmsonic.radio.gov.pk:7000/Kids" },
+        { name: "Suno FM", freq: "89.4 MHz", url: "https://stream-160.zeno.fm/kugzam6xkypvv" }
+    ],
+    "Punjab": [
+        { name: "FM 101 Bahawalpur", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8020/relay?type=http&nocache=9" },
+        { name: "MW Bahawalpur", freq: "Medium Wave", url: "https://whmsonic.radio.gov.pk:8092/relay?type=http&nocache=9" },
+        { name: "FM 93 Faisalabad", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:8022/relay?type=http&nocache=9" },
+        { name: "FM 101 Faisalabad", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8024/relay?type=http&nocache=9" },
+        { name: "FM 93 Lahore", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:8088/stream?type=http&nocache=4" },
+        { name: "FM 101 Lahore", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:7000/101lahore" },
+        { name: "Lahore MW", freq: "Medium Wave", url: "https://whmsonic.radio.gov.pk:8026/relay?type=http&nocache=9" },
+        { name: "FM 93 Mianwali", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:8028/relay?type=http&nocache=9" },
+        { name: "FM 93 Multan", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:7014/stream?type=http&nocache=12" },
+        { name: "FM 101 Multan", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8032/stream?type=http&nocache=12" },
+        { name: "Multan MW", freq: "Medium Wave", url: "https://whmsonic.radio.gov.pk:8034/stream?type=http&nocache=12" },
+        { name: "FM 93 Rawalpindi", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:8036/relay?type=http&nocache=9" },
+        { name: "FM 101 Sialkot", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8038/relay?type=http&nocache=9" },
+        { name: "FM 101 Sargodha", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8040/relay?type=http&nocache=9" }
+    ],
+    "Sindh": [
+        { name: "Hyderabad MW", freq: "1008 KHz", url: "https://whmsonic.radio.gov.pk:8042/stream?type=http&nocache=12" },
+        { name: "FM 101 Hyderabad", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8044/stream?type=http&nocache=12" },
+        { name: "FM 101 Karachi", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8048/stream?type=http&nocache=12" },
+        { name: "FM 93 Karachi", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:7022/stream?type=http&nocache=12" },
+        { name: "FM 101 Larkana", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8050/stream?type=http&nocache=12" },
+        { name: "FM 101 Mithi", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8052/stream?type=http&nocache=12" },
+        { name: "FM 101 Khairpur", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8054/stream?type=http&nocache=12" },
+        { name: "MW Karachi", freq: "639 KHz", url: "https://whmsonic.radio.gov.pk:7000/MW639khi?type=http&nocache=9" },
+        { name: "FM 101.4 Bhitshah", freq: "101.4 MHz", url: "https://whmsonic.radio.gov.pk:8098/stream?type=http&nocache=12" }
+    ],
+    "Balochistan": [
+        { name: "FM 101 Quetta", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8058/stream?type=http&nocache=12" },
+        { name: "Quetta MW", freq: "Medium Wave", url: "https://whmsonic.radio.gov.pk:8060/relay?type=http&nocache=9" },
+        { name: "Khuzdar MW", freq: "567 KHz", url: "https://whmsonic.radio.gov.pk:8062/stream?type=http&nocache=12" }
+    ],
+     "Khyber Pakhtunkhwa": [
+    { name: "FM 101 Peshawar", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8070/relay?type=http&nocache=9" },
+    { name: "Peshawar MW", freq: "Medium Wave", url: "https://whmsonic.radio.gov.pk:8072/relay?type=http&nocache=9" },
+    { name: "FM 101 Kohat", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8068/relay?type=http&nocache=9" },
+    { name: "FM 101 Abbotabad", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8064/relay?type=http&nocache=9" },
+    { name: "FM 93 Chitral", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:8066/relay?type=http&nocache=9" },
+    { name: "D.I. Khan MW", freq: "711 KHz", url: "https://whmsonic.radio.gov.pk:7000/Dikhan?type=http&nocache=9" }
+  ],
+  "Azad Jammu & Kashmir": [
+    { name: "FM 101 Mirpur", freq: "101.0 MHz", url: "https://whmsonic.radio.gov.pk:8078/relay?type=http&nocache=9" },
+    { name: "AK‑RADIO‑Tarakhel", freq: "Live Stream", url: "https://whmsonic.radio.gov.pk:8076/relay?type=http&nocache=9" },
+    { name: "FM 93 Muzaffarabad", freq: "93.0 MHz", url: "https://whmsonic.radio.gov.pk:8070/93muzaffarabad?type=http&nocache=9" },
+    { name: "Azad Kashmir Radio Mirpur", freq: "Live Stream", url: "https://whmsonic.radio.gov.pk:8074?type=http&nocache=9" }
+  ],
+  "Gilgit-Baltistan": [
+    { name: "Gilgit MW", freq: "1512 KHz", url: "https://whmsonic.radio.gov.pk:8082/relay?type=http&nocache=9" }
+  ]
+};
+
+
     let map;
     let marker;
     let mapInitialized = false;
@@ -644,9 +866,10 @@
         showSection('news');
         const lastFeed = localStorage.getItem('lastFeed');
         if (lastFeed && !document.querySelector('.topbar button.active')) {
-            loadFeed(lastFeed);
+            loadFeed(lastFeed, false); // Don't steal focus on auto-load
         }
     }
+
 
     function toggleReadMore(idx) {
       const shortEl = document.getElementById(`short-${idx}`);
@@ -659,13 +882,17 @@
       }
     }
 
-    function loadFeed(source) {
+    function loadFeed(source, shouldActivate = true) {
       const container = document.getElementById('news-container');
       const loader = document.getElementById('loader');
-      const buttons = document.querySelectorAll('.topbar button');
-      buttons.forEach(button => button.classList.remove('active'));
-      const activeButton = document.querySelector(`.topbar button[onclick="loadFeed('${source}')"]`);
-      if (activeButton) activeButton.classList.add('active');
+      
+      if(shouldActivate){
+        const buttons = document.querySelectorAll('.topbar button');
+        buttons.forEach(button => button.classList.remove('active'));
+        const activeButton = document.querySelector(`.topbar button[onclick="loadFeed('${source}')"]`);
+        if (activeButton) activeButton.classList.add('active');
+      }
+
       container.innerHTML = '';
       loader.style.display = 'block';
       localStorage.setItem('lastFeed', source);
@@ -704,6 +931,129 @@
           container.innerHTML = `<p>Error loading news: ${err.message}</p>`;
           console.error("Feed loading error:", err);
         });
+    }
+
+    // --- Radio Player Builder and Controls ---
+    let audioPlayer = null;
+    let currentPlayingStation = null;
+    let audioContext, analyser, source;
+    let isAudioContextInitialized = false;
+
+    function buildRadioPlayer() {
+        const radioContainer = document.getElementById('radio');
+        if (!radioContainer) return;
+
+        let html = ``;
+        
+        for (const region in radioData) {
+            html += `<h2 class="region-title">${region}</h2>`;
+            html += `<div class="station-grid">`;
+            radioData[region].forEach(station => {
+                html += `
+                    <div class="station" data-stream-url="${station.url}">
+                        <div class="station-info">
+                            <p class="station-name">${station.name}</p>
+                            <p class="station-frequency">${station.freq}</p>
+                        </div>
+                        <div class="station-controls">
+                            <div class="visualizer"><span></span><span></span><span></span><span></span></div>
+                            <button class="play-pause-btn" aria-label="Play ${station.name}">
+                                <i class="fas fa-play"></i>
+                                <i class="fas fa-pause"></i>
+                                <div class="radio-loader"></div>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+        }
+        
+        html += `<audio id="radio-audio-player" crossorigin="anonymous" preload="none"></audio>`;
+        radioContainer.innerHTML = html;
+        
+        // After building the player, set up the controls
+        setupRadioControls();
+    }
+
+    function setupRadioControls() {
+        audioPlayer = document.getElementById('radio-audio-player');
+        const stations = document.querySelectorAll('.station');
+
+        function initAudioContext() {
+            if (isAudioContextInitialized || !audioPlayer) return;
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioContext = new AudioContext();
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 64;
+                source = audioContext.createMediaElementSource(audioPlayer);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+                isAudioContextInitialized = true;
+            } catch (e) {
+                console.error("Web Audio API could not be initialized.", e);
+            }
+        }
+
+        function drawVisualizer() {
+            if (!isAudioContextInitialized || !audioPlayer || audioPlayer.paused || !currentPlayingStation) return;
+            requestAnimationFrame(drawVisualizer);
+            
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+
+            const visualizerBars = currentPlayingStation.querySelectorAll('.visualizer span');
+            const barCount = visualizerBars.length;
+            
+            for(let i = 0; i < barCount; i++) {
+                const barHeight = Math.pow(dataArray[i * 2] / 255, 2.5) * 100;
+                visualizerBars[i].style.height = `${Math.max(5, barHeight)}%`;
+            }
+        }
+
+        stations.forEach(station => {
+            const playButton = station.querySelector('.play-pause-btn');
+            playButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                initAudioContext();
+
+                if (currentPlayingStation === station && !audioPlayer.paused) {
+                    audioPlayer.pause();
+                    return;
+                }
+
+                if (currentPlayingStation) {
+                    currentPlayingStation.classList.remove('playing', 'loading');
+                }
+                stations.forEach(s => s.classList.remove('playing', 'loading'));
+
+                station.classList.add('loading');
+                currentPlayingStation = station;
+
+                audioPlayer.src = station.dataset.streamUrl;
+                audioPlayer.play().then(() => {
+                    station.classList.remove('loading');
+                    station.classList.add('playing');
+                    drawVisualizer();
+                }).catch(err => {
+                    console.error("Failed to play audio:", err);
+                    station.classList.remove('loading');
+                    currentPlayingStation = null;
+                    alert('Could not play the selected station.');
+                });
+            });
+        });
+
+        audioPlayer.onpause = () => {
+            if (currentPlayingStation) {
+                currentPlayingStation.classList.remove('playing', 'loading');
+                const visualizerBars = currentPlayingStation.querySelectorAll('.visualizer span');
+                visualizerBars.forEach(bar => bar.style.height = '10%');
+                currentPlayingStation = null;
+            }
+        };
     }
 
     // --- GPS and Map Functions ---
@@ -945,7 +1295,13 @@
       if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
       setupHamburgerMenu();
       setupTwitterFeeds();
+      buildRadioPlayer(); // Dynamically create the radio section
       showSection('home');
+      const lastFeed = localStorage.getItem('lastFeed');
+      if (lastFeed) {
+          const activeButton = document.querySelector(`.topbar button[onclick="loadFeed('${lastFeed}')"]`);
+          if (activeButton) activeButton.classList.add('active');
+      }
     });
   </script>
 
